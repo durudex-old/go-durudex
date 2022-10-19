@@ -18,6 +18,33 @@ type GetUserResponse struct {
 // GetUser returns GetUserResponse.User, and is useful for accessing the field via an interface.
 func (v *GetUserResponse) GetUser() types.User { return v.User }
 
+// RefreshTokenResponse is returned by RefreshToken on success.
+type RefreshTokenResponse struct {
+	// Refresh authorization token.
+	RefreshToken string `json:"refreshToken"`
+}
+
+// GetRefreshToken returns RefreshTokenResponse.RefreshToken, and is useful for accessing the field via an interface.
+func (v *RefreshTokenResponse) GetRefreshToken() string { return v.RefreshToken }
+
+// SignInResponse is returned by SignIn on success.
+type SignInResponse struct {
+	// User Sign In.
+	SignIn types.Tokens `json:"signIn"`
+}
+
+// GetSignIn returns SignInResponse.SignIn, and is useful for accessing the field via an interface.
+func (v *SignInResponse) GetSignIn() types.Tokens { return v.SignIn }
+
+// SignUpResponse is returned by SignUp on success.
+type SignUpResponse struct {
+	// User Sign Up.
+	SignUp types.Tokens `json:"signUp"`
+}
+
+// GetSignUp returns SignUpResponse.SignUp, and is useful for accessing the field via an interface.
+func (v *SignUpResponse) GetSignUp() types.Tokens { return v.SignUp }
+
 // __GetUserInput is used internally by genqlient
 type __GetUserInput struct {
 	Id string `json:"id"`
@@ -25,6 +52,30 @@ type __GetUserInput struct {
 
 // GetId returns __GetUserInput.Id, and is useful for accessing the field via an interface.
 func (v *__GetUserInput) GetId() string { return v.Id }
+
+// __RefreshTokenInput is used internally by genqlient
+type __RefreshTokenInput struct {
+	Input types.SessionCredInput `json:"input"`
+}
+
+// GetInput returns __RefreshTokenInput.Input, and is useful for accessing the field via an interface.
+func (v *__RefreshTokenInput) GetInput() types.SessionCredInput { return v.Input }
+
+// __SignInInput is used internally by genqlient
+type __SignInInput struct {
+	Input types.SignInInput `json:"input"`
+}
+
+// GetInput returns __SignInInput.Input, and is useful for accessing the field via an interface.
+func (v *__SignInInput) GetInput() types.SignInInput { return v.Input }
+
+// __SignUpInput is used internally by genqlient
+type __SignUpInput struct {
+	Input types.SignUpInput `json:"input"`
+}
+
+// GetInput returns __SignUpInput.Input, and is useful for accessing the field via an interface.
+func (v *__SignUpInput) GetInput() types.SignUpInput { return v.Input }
 
 func GetUser(
 	ctx context.Context,
@@ -49,6 +100,102 @@ query GetUser ($id: ID!) {
 	var err error
 
 	var data GetUserResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func RefreshToken(
+	ctx context.Context,
+	client graphql.Client,
+	input types.SessionCredInput,
+) (*RefreshTokenResponse, error) {
+	req := &graphql.Request{
+		OpName: "RefreshToken",
+		Query: `
+mutation RefreshToken ($input: SessionCredInput!) {
+	refreshToken(input: $input)
+}
+`,
+		Variables: &__RefreshTokenInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data RefreshTokenResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func SignIn(
+	ctx context.Context,
+	client graphql.Client,
+	input types.SignInInput,
+) (*SignInResponse, error) {
+	req := &graphql.Request{
+		OpName: "SignIn",
+		Query: `
+mutation SignIn ($input: SignInInput!) {
+	signIn(input: $input) {
+		access
+		refresh
+	}
+}
+`,
+		Variables: &__SignInInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data SignInResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func SignUp(
+	ctx context.Context,
+	client graphql.Client,
+	input types.SignUpInput,
+) (*SignUpResponse, error) {
+	req := &graphql.Request{
+		OpName: "SignUp",
+		Query: `
+mutation SignUp ($input: SignUpInput!) {
+	signUp(input: $input) {
+		access
+		refresh
+	}
+}
+`,
+		Variables: &__SignUpInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data SignUpResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

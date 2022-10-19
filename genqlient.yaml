@@ -13,3 +13,7 @@ generated: sdk/generated/generated.go
 
 package_bindings:
   - package: github.com/durudex/durudex-go/types
+
+bindings:
+  Uint64:
+    type: uint64
