@@ -7,19 +7,23 @@
 
 package sdk
 
-import (
-	"net/http"
+import "github.com/Khan/genqlient/graphql"
 
-	"github.com/Khan/genqlient/graphql"
-)
-
-// Testing API url.
-const TestAPI = "https://api.test.durudex.com/query"
+// Durudex test API url.
+const TestAPIEndpoint string = "https://api.test.durudex.com/query"
 
 // Durudex API client.
 type Client struct{ client graphql.Client }
 
+// Durudex API client config.
+type ClientConfig struct {
+	// API endpoint.
+	Endpoint string
+	// HTTP transport.
+	Transport graphql.Doer
+}
+
 // Creating a new Durudex API client.
-func NewClient() *Client {
-	return &Client{client: graphql.NewClient(TestAPI, http.DefaultClient)}
+func NewClient(cfg ClientConfig) *Client {
+	return &Client{client: graphql.NewClient(cfg.Endpoint, cfg.Transport)}
 }
