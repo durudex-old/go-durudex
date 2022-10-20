@@ -29,5 +29,12 @@ func (c *Client) SignIn(ctx context.Context, input types.SignInInput) (types.Tok
 // Refresh authorization token.
 func (c *Client) RefreshToken(ctx context.Context, input types.SessionCredInput) (string, error) {
 	response, err := generated.RefreshToken(ctx, c.client, input)
-	return response.RefreshToken, err
+	if err != nil {
+		return "", err
+	}
+
+	// Sets authorization access token.
+	c.config.Transport.SetAccessToken(response.RefreshToken)
+
+	return response.RefreshToken, nil
 }
