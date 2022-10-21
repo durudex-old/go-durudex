@@ -20,3 +20,13 @@ type User struct {
 	// User avatar url.
 	AvatarUrl string `json:"avatarUrl"`
 }
+
+// Forgot user password input.
+type ForgotPasswordInput struct {
+	// User email.
+	Email string `json:"email"`
+	// New user password.
+	Password string `json:"password"`
+	// User verification code.
+	Code uint64 `json:"code"`
+}

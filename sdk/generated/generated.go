@@ -7,16 +7,89 @@ import (
 
 	"github.com/Khan/genqlient/graphql"
 	"github.com/durudex/durudex-go/types"
+	"github.com/segmentio/ksuid"
 )
+
+// CreatePostResponse is returned by CreatePost on success.
+type CreatePostResponse struct {
+	// Create a new user post.
+	CreatePost ksuid.KSUID `json:"createPost"`
+}
+
+// GetCreatePost returns CreatePostResponse.CreatePost, and is useful for accessing the field via an interface.
+func (v *CreatePostResponse) GetCreatePost() ksuid.KSUID { return v.CreatePost }
+
+// DeletePostResponse is returned by DeletePost on success.
+type DeletePostResponse struct {
+	// Delete user post.
+	DeletePost bool `json:"deletePost"`
+}
+
+// GetDeletePost returns DeletePostResponse.DeletePost, and is useful for accessing the field via an interface.
+func (v *DeletePostResponse) GetDeletePost() bool { return v.DeletePost }
+
+// DeleteSessionResponse is returned by DeleteSession on success.
+type DeleteSessionResponse struct {
+	// Delete user session.
+	DeleteSession bool `json:"deleteSession"`
+}
+
+// GetDeleteSession returns DeleteSessionResponse.DeleteSession, and is useful for accessing the field via an interface.
+func (v *DeleteSessionResponse) GetDeleteSession() bool { return v.DeleteSession }
+
+// ForgotPasswordResponse is returned by ForgotPassword on success.
+type ForgotPasswordResponse struct {
+	// Forgot user password.
+	ForgotPassword bool `json:"forgotPassword"`
+}
+
+// GetForgotPassword returns ForgotPasswordResponse.ForgotPassword, and is useful for accessing the field via an interface.
+func (v *ForgotPasswordResponse) GetForgotPassword() bool { return v.ForgotPassword }
+
+// GetMeResponse is returned by GetMe on success.
+type GetMeResponse struct {
+	// Getting me.
+	Me types.User `json:"me"`
+}
+
+// GetMe returns GetMeResponse.Me, and is useful for accessing the field via an interface.
+func (v *GetMeResponse) GetMe() types.User { return v.Me }
+
+// GetPostResponse is returned by GetPost on success.
+type GetPostResponse struct {
+	// Getting user post.
+	Post *types.Post `json:"post"`
+}
+
+// GetPost returns GetPostResponse.Post, and is useful for accessing the field via an interface.
+func (v *GetPostResponse) GetPost() *types.Post { return v.Post }
+
+// GetSessionResponse is returned by GetSession on success.
+type GetSessionResponse struct {
+	// Getting user session.
+	Session *types.Session `json:"session"`
+}
+
+// GetSession returns GetSessionResponse.Session, and is useful for accessing the field via an interface.
+func (v *GetSessionResponse) GetSession() *types.Session { return v.Session }
+
+// GetSessionsResponse is returned by GetSessions on success.
+type GetSessionsResponse struct {
+	// Getting user sessions.
+	Sessions types.SessionConnection `json:"sessions"`
+}
+
+// GetSessions returns GetSessionsResponse.Sessions, and is useful for accessing the field via an interface.
+func (v *GetSessionsResponse) GetSessions() types.SessionConnection { return v.Sessions }
 
 // GetUserResponse is returned by GetUser on success.
 type GetUserResponse struct {
 	// Getting user.
-	User types.User `json:"user"`
+	User *types.User `json:"user"`
 }
 
 // GetUser returns GetUserResponse.User, and is useful for accessing the field via an interface.
-func (v *GetUserResponse) GetUser() types.User { return v.User }
+func (v *GetUserResponse) GetUser() *types.User { return v.User }
 
 // RefreshTokenResponse is returned by RefreshToken on success.
 type RefreshTokenResponse struct {
@@ -45,13 +118,90 @@ type SignUpResponse struct {
 // GetSignUp returns SignUpResponse.SignUp, and is useful for accessing the field via an interface.
 func (v *SignUpResponse) GetSignUp() types.Tokens { return v.SignUp }
 
+// UpdatePostResponse is returned by UpdatePost on success.
+type UpdatePostResponse struct {
+	// Update user post.
+	UpdatePost bool `json:"updatePost"`
+}
+
+// GetUpdatePost returns UpdatePostResponse.UpdatePost, and is useful for accessing the field via an interface.
+func (v *UpdatePostResponse) GetUpdatePost() bool { return v.UpdatePost }
+
+// __CreatePostInput is used internally by genqlient
+type __CreatePostInput struct {
+	Input types.CreatePostInput `json:"input"`
+}
+
+// GetInput returns __CreatePostInput.Input, and is useful for accessing the field via an interface.
+func (v *__CreatePostInput) GetInput() types.CreatePostInput { return v.Input }
+
+// __DeletePostInput is used internally by genqlient
+type __DeletePostInput struct {
+	Id ksuid.KSUID `json:"id"`
+}
+
+// GetId returns __DeletePostInput.Id, and is useful for accessing the field via an interface.
+func (v *__DeletePostInput) GetId() ksuid.KSUID { return v.Id }
+
+// __DeleteSessionInput is used internally by genqlient
+type __DeleteSessionInput struct {
+	Id ksuid.KSUID `json:"id"`
+}
+
+// GetId returns __DeleteSessionInput.Id, and is useful for accessing the field via an interface.
+func (v *__DeleteSessionInput) GetId() ksuid.KSUID { return v.Id }
+
+// __ForgotPasswordInput is used internally by genqlient
+type __ForgotPasswordInput struct {
+	Input types.ForgotPasswordInput `json:"input"`
+}
+
+// GetInput returns __ForgotPasswordInput.Input, and is useful for accessing the field via an interface.
+func (v *__ForgotPasswordInput) GetInput() types.ForgotPasswordInput { return v.Input }
+
+// __GetPostInput is used internally by genqlient
+type __GetPostInput struct {
+	Id ksuid.KSUID `json:"id"`
+}
+
+// GetId returns __GetPostInput.Id, and is useful for accessing the field via an interface.
+func (v *__GetPostInput) GetId() ksuid.KSUID { return v.Id }
+
+// __GetSessionInput is used internally by genqlient
+type __GetSessionInput struct {
+	Id ksuid.KSUID `json:"id"`
+}
+
+// GetId returns __GetSessionInput.Id, and is useful for accessing the field via an interface.
+func (v *__GetSessionInput) GetId() ksuid.KSUID { return v.Id }
+
+// __GetSessionsInput is used internally by genqlient
+type __GetSessionsInput struct {
+	First  *int    `json:"first"`
+	Last   *int    `json:"last"`
+	Before *string `json:"before"`
+	After  *string `json:"after"`
+}
+
+// GetFirst returns __GetSessionsInput.First, and is useful for accessing the field via an interface.
+func (v *__GetSessionsInput) GetFirst() *int { return v.First }
+
+// GetLast returns __GetSessionsInput.Last, and is useful for accessing the field via an interface.
+func (v *__GetSessionsInput) GetLast() *int { return v.Last }
+
+// GetBefore returns __GetSessionsInput.Before, and is useful for accessing the field via an interface.
+func (v *__GetSessionsInput) GetBefore() *string { return v.Before }
+
+// GetAfter returns __GetSessionsInput.After, and is useful for accessing the field via an interface.
+func (v *__GetSessionsInput) GetAfter() *string { return v.After }
+
 // __GetUserInput is used internally by genqlient
 type __GetUserInput struct {
-	Id string `json:"id"`
+	Id ksuid.KSUID `json:"id"`
 }
 
 // GetId returns __GetUserInput.Id, and is useful for accessing the field via an interface.
-func (v *__GetUserInput) GetId() string { return v.Id }
+func (v *__GetUserInput) GetId() ksuid.KSUID { return v.Id }
 
 // __RefreshTokenInput is used internally by genqlient
 type __RefreshTokenInput struct {
@@ -77,10 +227,283 @@ type __SignUpInput struct {
 // GetInput returns __SignUpInput.Input, and is useful for accessing the field via an interface.
 func (v *__SignUpInput) GetInput() types.SignUpInput { return v.Input }
 
+// __UpdatePostInput is used internally by genqlient
+type __UpdatePostInput struct {
+	Input types.UpdatePostInput `json:"input"`
+}
+
+// GetInput returns __UpdatePostInput.Input, and is useful for accessing the field via an interface.
+func (v *__UpdatePostInput) GetInput() types.UpdatePostInput { return v.Input }
+
+func CreatePost(
+	ctx context.Context,
+	client graphql.Client,
+	input types.CreatePostInput,
+) (*CreatePostResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreatePost",
+		Query: `
+mutation CreatePost ($input: CreatePostInput!) {
+	createPost(input: $input)
+}
+`,
+		Variables: &__CreatePostInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data CreatePostResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func DeletePost(
+	ctx context.Context,
+	client graphql.Client,
+	id ksuid.KSUID,
+) (*DeletePostResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeletePost",
+		Query: `
+mutation DeletePost ($id: ID!) {
+	deletePost(id: $id)
+}
+`,
+		Variables: &__DeletePostInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data DeletePostResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func DeleteSession(
+	ctx context.Context,
+	client graphql.Client,
+	id ksuid.KSUID,
+) (*DeleteSessionResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteSession",
+		Query: `
+mutation DeleteSession ($id: ID!) {
+	deleteSession(id: $id)
+}
+`,
+		Variables: &__DeleteSessionInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data DeleteSessionResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ForgotPassword(
+	ctx context.Context,
+	client graphql.Client,
+	input types.ForgotPasswordInput,
+) (*ForgotPasswordResponse, error) {
+	req := &graphql.Request{
+		OpName: "ForgotPassword",
+		Query: `
+mutation ForgotPassword ($input: ForgotPasswordInput!) {
+	forgotPassword(input: $input)
+}
+`,
+		Variables: &__ForgotPasswordInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data ForgotPasswordResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetMe(
+	ctx context.Context,
+	client graphql.Client,
+) (*GetMeResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetMe",
+		Query: `
+query GetMe {
+	me {
+		id
+		username
+		verified
+		avatarUrl
+	}
+}
+`,
+	}
+	var err error
+
+	var data GetMeResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetPost(
+	ctx context.Context,
+	client graphql.Client,
+	id ksuid.KSUID,
+) (*GetPostResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetPost",
+		Query: `
+query GetPost ($id: ID!) {
+	post(id: $id) {
+		author {
+			id
+		}
+		text
+		updatedAt
+		attachments
+	}
+}
+`,
+		Variables: &__GetPostInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data GetPostResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetSession(
+	ctx context.Context,
+	client graphql.Client,
+	id ksuid.KSUID,
+) (*GetSessionResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetSession",
+		Query: `
+query GetSession ($id: ID!) {
+	session(id: $id) {
+		userId
+		ip
+		expiresIn
+	}
+}
+`,
+		Variables: &__GetSessionInput{
+			Id: id,
+		},
+	}
+	var err error
+
+	var data GetSessionResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetSessions(
+	ctx context.Context,
+	client graphql.Client,
+	first *int,
+	last *int,
+	before *string,
+	after *string,
+) (*GetSessionsResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetSessions",
+		Query: `
+query GetSessions ($first: Int, $last: Int, $before: String, $after: String) {
+	sessions(first: $first, last: $last, before: $before, after: $after) {
+		nodes {
+			id
+			userId
+			ip
+			expiresIn
+		}
+	}
+}
+`,
+		Variables: &__GetSessionsInput{
+			First:  first,
+			Last:   last,
+			Before: before,
+			After:  after,
+		},
+	}
+	var err error
+
+	var data GetSessionsResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func GetUser(
 	ctx context.Context,
 	client graphql.Client,
-	id string,
+	id ksuid.KSUID,
 ) (*GetUserResponse, error) {
 	req := &graphql.Request{
 		OpName: "GetUser",
@@ -196,6 +619,36 @@ mutation SignUp ($input: SignUpInput!) {
 	var err error
 
 	var data SignUpResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdatePost(
+	ctx context.Context,
+	client graphql.Client,
+	input types.UpdatePostInput,
+) (*UpdatePostResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdatePost",
+		Query: `
+mutation UpdatePost ($input: UpdatePostInput!) {
+	updatePost(input: $input)
+}
+`,
+		Variables: &__UpdatePostInput{
+			Input: input,
+		},
+	}
+	var err error
+
+	var data UpdatePostResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

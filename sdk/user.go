@@ -19,14 +19,26 @@ import (
 
 // User type.
 type User struct {
-	types.User
+	*types.User
 	// GraphQL client.
 	client graphql.Client
 }
 
 // Getting a user.
 func (c *Client) GetUser(ctx context.Context, id ksuid.KSUID) (User, error) {
-	response, err := generated.GetUser(ctx, c.client, id.String())
+	response, err := generated.GetUser(ctx, c.client, id)
 	response.User.Id = id
 	return User{User: response.User, client: c.client}, err
+}
+
+// Getting a me.
+func (c *Client) GetMe(ctx context.Context) (User, error) {
+	response, err := generated.GetMe(ctx, c.client)
+	return User{User: &response.Me, client: c.client}, err
+}
+
+// Forgot a user password.
+func (c *Client) ForgotPassword(ctx context.Context, input types.ForgotPasswordInput) (bool, error) {
+	response, err := generated.ForgotPassword(ctx, c.client, input)
+	return response.ForgotPassword, err
 }

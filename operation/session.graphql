@@ -1,0 +1,27 @@
+# Copyright © 2022 Durudex
+#
+# This source code is licensed under the MIT license found in the
+# LICENSE file in the root directory of this source tree.
+
+query GetSession($id: ID!) {
+  session(id: $id) {
+    userId
+    ip
+    expiresIn
+  }
+}
+
+query GetSessions($first: Int, $last: Int, $before: String, $after: String) {
+  sessions(first: $first, last: $last, before: $before, after: $after) {
+		nodes {
+      id
+      userId
+      ip
+      expiresIn
+    }
+  }
+}
+
+mutation DeleteSession($id: ID!) {
+  deleteSession(id: $id)
+}

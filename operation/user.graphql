@@ -10,3 +10,16 @@ query GetUser($id: ID!) {
     avatarUrl
   }
 }
+
+query GetMe {
+  me {
+    id
+    username
+    verified
+    avatarUrl
+  }
+}
+
+mutation ForgotPassword($input: ForgotPasswordInput!) {
+  forgotPassword(input: $input)
+}
