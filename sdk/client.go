@@ -44,6 +44,9 @@ type TokenType string
 // Getting token type in string.
 func (t TokenType) String() string { return string(t) }
 
+// Returns pointer on you value.
+func Ptr[T any](v T) *T { return &v }
+
 // Client transport interface.
 type Transport interface {
 	http.RoundTripper
@@ -117,6 +120,11 @@ func NewClient(cfg ClientConfig) *Client {
 	}
 
 	return &client
+}
+
+// Making a client request to GraphQL API.
+func (c *Client) MakeRequest(ctx context.Context, req *graphql.Request, resp *graphql.Response) error {
+	return c.client.MakeRequest(ctx, req, resp)
 }
 
 // Refreshing access token loop.
