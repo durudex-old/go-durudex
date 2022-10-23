@@ -13,6 +13,42 @@
   </a>
 </div>
 
+<h1 align="center">Durudex Go SDK</h1>
+
+## Setup
+
+```
+go get github.com/durudex/durudex-go/sdk
+```
+
+## Usage
+
+An example of getting a user using id:
+
+```go
+import (
+  ...
+
+  "github.com/durudex/durudex-go/sdk"
+)
+
+func main() {
+  client := sdk.NewClient(sdk.ClientConfig{
+    Endpoint:      sdk.TestAPIEndpoint,
+    TransportType: sdk.AuthTransportType,
+    Transport:     sdk.NewDefaultTransport(),
+  })
+
+  ctx := context.Background()
+  userId := ksuid.New()
+
+  user, err := client.GetUser(ctx, userId)
+  if err != nil { ... }
+
+  ...
+}
+```
+
 ## ⚠️ License
 
 Copyright © 2022 [Durudex](https://github.com/durudex). Released under the MIT license.
