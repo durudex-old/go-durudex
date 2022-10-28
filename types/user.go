@@ -19,6 +19,8 @@ type User struct {
 	Verified bool `json:"verified"`
 	// User avatar url.
 	AvatarUrl string `json:"avatarUrl"`
+	// User posts connection.
+	Posts PostConnection `json:"posts"`
 }
 
 // Forgot user password input.

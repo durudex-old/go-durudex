@@ -29,6 +29,8 @@ type Session struct {
 type SessionConnection struct {
 	// A list of nodes.
 	Nodes []*Session `json:"nodes"`
+	// A list of edges.
+	Edges []*SessionEdge `json:"edges"`
 	// Identifies the total count of items in the connection.
 	TotalCount int `json:"totalCount"`
 }

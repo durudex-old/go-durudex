@@ -3,5 +3,5 @@
 ## Setup
 
 ```
-go get github.com/durudex/durudex-go/types
+go get github.com/durudex/go-durudex/types
 ```

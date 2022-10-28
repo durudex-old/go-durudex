@@ -27,6 +27,24 @@ type Post struct {
 	Attachments []string `json:"attachments"`
 }
 
+// List of post owned by the subject.
+type PostConnection struct {
+	// A list of nodes.
+	Nodes []*Post `json:"nodes"`
+	// A list of edges.
+	Edges []*PostEdge `json:"edges"`
+	// Identifies the total count of items in the connection.
+	TotalCount int `json:"totalCount"`
+}
+
+// An edge in a post connection.
+type PostEdge struct {
+	// A cursor for use in pagination.
+	Cursor string `json:"cursor"`
+	// The item at the end of the edge.
+	Node *Post `json:"node"`
+}
+
 // Create post input.
 type CreatePostInput struct {
 	// Post text.

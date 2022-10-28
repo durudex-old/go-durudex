@@ -1,4 +1,4 @@
-module github.com/durudex/durudex-go/types
+module github.com/durudex/go-durudex/types
 
 go 1.18
 
