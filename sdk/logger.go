@@ -18,6 +18,8 @@ type Logger interface {
 	Debug(msg string)
 	// Info client log message.
 	Info(msg string)
+	// Error client log message.
+	Error(msg string)
 	// Fatal client log message.
 	Fatal(msg string)
 }
@@ -27,12 +29,17 @@ type DefaultClientLogger struct{}
 
 // Debug client log message.
 func (l *DefaultClientLogger) Debug(msg string) {
-	log.Println("DEBUG ", msg)
+	log.Println("DEBUG", msg)
 }
 
 // Info client log message.
 func (l *DefaultClientLogger) Info(msg string) {
-	log.Println("INFO ", msg)
+	log.Println("INFO", msg)
+}
+
+// Error client log message.
+func (l *DefaultClientLogger) Error(msg string) {
+	log.Panicln("ERROR", msg)
 }
 
 // Fatal client log message.

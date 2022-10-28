@@ -14,6 +14,49 @@ query GetPost($id: ID!) {
   }
 }
 
+query GetUserPostsNodes($userId: ID!, $first: Int, $last: Int, $before: String, $after: String) {
+  user(id: $userId) {
+    posts(first: $first, last: $last, before: $before, after: $after) {
+      nodes {
+        id
+        author {
+          id
+        }
+        text
+        updatedAt
+        attachments
+      }
+    }
+  }
+}
+
+query GetUserPostsEdges($userId: ID!, $first: Int, $last: Int, $before: String, $after: String) {
+  user(id: $userId) {
+    posts(first: $first, last: $last, before: $before, after: $after) {
+			edges {
+        cursor
+        node {
+          id
+          author {
+            id
+          }
+          text
+          updatedAt
+          attachments
+        }
+      }
+    }
+  }
+}
+
+query GetTotalUserPostsCount($userId: ID!) {
+  user(id: $userId) {
+    posts() {
+      totalCount
+    }
+  }
+}
+
 mutation CreatePost($input: CreatePostInput!) {
   createPost(input: $input)
 }

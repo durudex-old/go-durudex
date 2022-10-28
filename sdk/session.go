@@ -10,8 +10,8 @@ package sdk
 import (
 	"context"
 
-	"github.com/durudex/durudex-go/sdk/generated"
-	"github.com/durudex/durudex-go/types"
+	"github.com/durudex/go-durudex/sdk/generated"
+	"github.com/durudex/go-durudex/types"
 
 	"github.com/segmentio/ksuid"
 )
@@ -22,10 +22,22 @@ func (c *Client) GetSession(ctx context.Context, id ksuid.KSUID) (*types.Session
 	return response.Session, err
 }
 
-// Getting a user sessions list.
-func (c *Client) GetSessionList(ctx context.Context, sort types.SortOptions) (types.SessionConnection, error) {
-	response, err := generated.GetSessions(ctx, c.client, sort.First, sort.Last, sort.Before, sort.After)
-	return response.Sessions, err
+// Getting a user sessions nodes.
+func (c *Client) GetSessionsNodes(ctx context.Context, sort types.SortOptions) ([]*types.Session, error) {
+	response, err := generated.GetSessionsNodes(ctx, c.client, sort.First, sort.Last, sort.Before, sort.After)
+	return response.Sessions.Nodes, err
+}
+
+// Getting a user sessions edges.
+func (c *Client) GetSessionsEdges(ctx context.Context, sort types.SortOptions) ([]*types.SessionEdge, error) {
+	response, err := generated.GetSessionsEdges(ctx, c.client, sort.First, sort.Last, sort.Before, sort.After)
+	return response.Sessions.Edges, err
+}
+
+// Getting a total user sessions count.
+func (c *Client) GetTotalSessionsCount(ctx context.Context) (int, error) {
+	response, err := generated.GetTotalSessionsCount(ctx, c.client)
+	return response.Sessions.TotalCount, err
 }
 
 // Deleting a user session.

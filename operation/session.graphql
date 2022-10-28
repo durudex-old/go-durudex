@@ -11,7 +11,7 @@ query GetSession($id: ID!) {
   }
 }
 
-query GetSessions($first: Int, $last: Int, $before: String, $after: String) {
+query GetSessionsNodes($first: Int, $last: Int, $before: String, $after: String) {
   sessions(first: $first, last: $last, before: $before, after: $after) {
 		nodes {
       id
@@ -19,6 +19,26 @@ query GetSessions($first: Int, $last: Int, $before: String, $after: String) {
       ip
       expiresIn
     }
+  }
+}
+
+query GetSessionsEdges($first: Int, $last: Int, $before: String, $after: String) {
+  sessions(first: $first, last: $last, before: $before, after: $after) {
+		edges {
+      cursor
+      node {
+        id
+        userId
+        ip
+        expiresIn
+      }
+    }
+  }
+}
+
+query GetTotalSessionsCount {
+  sessions() {
+    totalCount
   }
 }
 

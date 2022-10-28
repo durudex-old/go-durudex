@@ -9,12 +9,13 @@ package sdk
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"sync"
 	"time"
 
-	"github.com/durudex/durudex-go/sdk/generated"
-	"github.com/durudex/durudex-go/types"
+	"github.com/durudex/go-durudex/sdk/generated"
+	"github.com/durudex/go-durudex/types"
 
 	"github.com/Khan/genqlient/graphql"
 )
@@ -111,6 +112,13 @@ func NewClient(cfg ClientConfig) *Client {
 
 	// Checking is client auth transport type.
 	if cfg.TransportType == AuthTransportType {
+		// Checking if AuthConfig specified in configuration.
+		if cfg.AuthConfig == nil {
+			client.logger.Fatal("to use auth transport you need to configure AuthConfig")
+
+			return nil
+		}
+
 		client.wg.Add(1)
 
 		// Refreshing access token loop.
@@ -133,7 +141,9 @@ func (c *Client) refreshTokenLoop() {
 	client := graphql.NewClient(c.config.Endpoint, http.DefaultClient)
 
 	// Refreshing authorization access token.
-	c.refreshToken(client)
+	if err := c.refreshToken(client); err != nil {
+		c.logger.Fatal("error refreshing access token: " + err.Error())
+	}
 
 	c.wg.Done()
 
@@ -141,12 +151,16 @@ func (c *Client) refreshTokenLoop() {
 		time.Sleep(c.config.AuthConfig.RefreshTTL)
 
 		// Refreshing authorization access token.
-		c.refreshToken(client)
+		if err := c.refreshToken(client); err != nil {
+			c.logger.Error("error refreshing access token: " + err.Error())
+		}
 	}
 }
 
 // Refreshing authorization access token.
-func (c *Client) refreshToken(client graphql.Client) {
+func (c *Client) refreshToken(client graphql.Client) error {
+	c.logger.Debug("refreshing access token")
+
 	// Refreshing access token.
 	response, err := generated.RefreshToken(context.Background(), client,
 		types.SessionCredInput{
@@ -155,11 +169,13 @@ func (c *Client) refreshToken(client graphql.Client) {
 		},
 	)
 	if err != nil {
-		c.logger.Fatal("error refreshing access token: " + err.Error())
+		return err
 	}
 
 	// Sets authorization access token.
 	c.config.Transport.SetAccessToken(response.RefreshToken)
+
+	return nil
 }
 
 // Auth client transport.
@@ -177,14 +193,9 @@ func NewAuthTransport() *AuthTransport {
 
 // Executing auth HTTP transaction.
 func (t *AuthTransport) RoundTrip(req *http.Request) (*http.Response, error) {
-	req.Header.Set(authorizationHeader, t.getAccessToken())
+	req.Header.Set(authorizationHeader, fmt.Sprintf("%s %s", BearerTokenType, t.access))
 
 	return t.wrapped.RoundTrip(req)
-}
-
-// Getting authorization header value.
-func (t *AuthTransport) getAccessToken() string {
-	return BearerTokenType.String() + " " + t.access
 }
 
 // Sets authorization access token.

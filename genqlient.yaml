@@ -14,7 +14,7 @@ generated: "sdk/generated/generated.go"
 optional: "pointer"
 
 package_bindings:
-  - package: "github.com/durudex/durudex-go/types"
+  - package: "github.com/durudex/go-durudex/types"
 
 bindings:
   ID:

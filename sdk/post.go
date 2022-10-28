@@ -10,8 +10,8 @@ package sdk
 import (
 	"context"
 
-	"github.com/durudex/durudex-go/sdk/generated"
-	"github.com/durudex/durudex-go/types"
+	"github.com/durudex/go-durudex/sdk/generated"
+	"github.com/durudex/go-durudex/types"
 
 	"github.com/segmentio/ksuid"
 )
@@ -20,6 +20,24 @@ import (
 func (c *Client) GetPost(ctx context.Context, id ksuid.KSUID) (*types.Post, error) {
 	response, err := generated.GetPost(ctx, c.client, id)
 	return response.Post, err
+}
+
+// Getting a user posts nodes.
+func (c *Client) GetUserPostsNodes(ctx context.Context, uid ksuid.KSUID, sort types.SortOptions) ([]*types.Post, error) {
+	response, err := generated.GetUserPostsNodes(ctx, c.client, uid, sort.First, sort.Last, sort.Before, sort.After)
+	return response.User.Posts.Nodes, err
+}
+
+// Getting a user posts edges.
+func (c *Client) GetUserPostsEdges(ctx context.Context, uid ksuid.KSUID, sort types.SortOptions) ([]*types.PostEdge, error) {
+	response, err := generated.GetUserPostsEdges(ctx, c.client, uid, sort.First, sort.Last, sort.Before, sort.After)
+	return response.User.Posts.Edges, err
+}
+
+// Getting a total user posts count.
+func (c *Client) GetTotalUserPostsCount(ctx context.Context, uid ksuid.KSUID) (int, error) {
+	response, err := generated.GetTotalUserPostsCount(ctx, c.client, uid)
+	return response.User.Posts.TotalCount, err
 }
 
 // Creating a new post.

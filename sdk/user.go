@@ -10,8 +10,8 @@ package sdk
 import (
 	"context"
 
-	"github.com/durudex/durudex-go/sdk/generated"
-	"github.com/durudex/durudex-go/types"
+	"github.com/durudex/go-durudex/sdk/generated"
+	"github.com/durudex/go-durudex/types"
 
 	"github.com/Khan/genqlient/graphql"
 	"github.com/segmentio/ksuid"
@@ -22,6 +22,24 @@ type User struct {
 	*types.User
 	// GraphQL client.
 	client graphql.Client
+}
+
+// Getting a user posts nodes.
+func (u User) GetPostsNodes(ctx context.Context, sort types.SortOptions) ([]*types.Post, error) {
+	response, err := generated.GetUserPostsNodes(ctx, u.client, u.Id, sort.First, sort.Last, sort.Before, sort.After)
+	return response.User.Posts.Nodes, err
+}
+
+// Getting a user posts edges.
+func (u User) GetPostsEdges(ctx context.Context, sort types.SortOptions) ([]*types.PostEdge, error) {
+	response, err := generated.GetUserPostsEdges(ctx, u.client, u.Id, sort.First, sort.Last, sort.Before, sort.After)
+	return response.User.Posts.Edges, err
+}
+
+// Getting a total user posts count.
+func (u User) GetTotalPostsCount(ctx context.Context) (int, error) {
+	response, err := generated.GetTotalUserPostsCount(ctx, u.client, u.Id)
+	return response.User.Posts.TotalCount, err
 }
 
 // Getting a user.

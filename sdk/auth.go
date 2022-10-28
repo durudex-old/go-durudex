@@ -10,8 +10,8 @@ package sdk
 import (
 	"context"
 
-	"github.com/durudex/durudex-go/sdk/generated"
-	"github.com/durudex/durudex-go/types"
+	"github.com/durudex/go-durudex/sdk/generated"
+	"github.com/durudex/go-durudex/types"
 )
 
 // User Sign Up.

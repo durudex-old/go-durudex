@@ -6,7 +6,7 @@ import (
 	"context"
 
 	"github.com/Khan/genqlient/graphql"
-	"github.com/durudex/durudex-go/types"
+	"github.com/durudex/go-durudex/types"
 	"github.com/segmentio/ksuid"
 )
 
@@ -73,14 +73,59 @@ type GetSessionResponse struct {
 // GetSession returns GetSessionResponse.Session, and is useful for accessing the field via an interface.
 func (v *GetSessionResponse) GetSession() *types.Session { return v.Session }
 
-// GetSessionsResponse is returned by GetSessions on success.
-type GetSessionsResponse struct {
+// GetSessionsEdgesResponse is returned by GetSessionsEdges on success.
+type GetSessionsEdgesResponse struct {
 	// Getting user sessions.
 	Sessions types.SessionConnection `json:"sessions"`
 }
 
-// GetSessions returns GetSessionsResponse.Sessions, and is useful for accessing the field via an interface.
-func (v *GetSessionsResponse) GetSessions() types.SessionConnection { return v.Sessions }
+// GetSessions returns GetSessionsEdgesResponse.Sessions, and is useful for accessing the field via an interface.
+func (v *GetSessionsEdgesResponse) GetSessions() types.SessionConnection { return v.Sessions }
+
+// GetSessionsNodesResponse is returned by GetSessionsNodes on success.
+type GetSessionsNodesResponse struct {
+	// Getting user sessions.
+	Sessions types.SessionConnection `json:"sessions"`
+}
+
+// GetSessions returns GetSessionsNodesResponse.Sessions, and is useful for accessing the field via an interface.
+func (v *GetSessionsNodesResponse) GetSessions() types.SessionConnection { return v.Sessions }
+
+// GetTotalSessionsCountResponse is returned by GetTotalSessionsCount on success.
+type GetTotalSessionsCountResponse struct {
+	// Getting user sessions.
+	Sessions types.SessionConnection `json:"sessions"`
+}
+
+// GetSessions returns GetTotalSessionsCountResponse.Sessions, and is useful for accessing the field via an interface.
+func (v *GetTotalSessionsCountResponse) GetSessions() types.SessionConnection { return v.Sessions }
+
+// GetTotalUserPostsCountResponse is returned by GetTotalUserPostsCount on success.
+type GetTotalUserPostsCountResponse struct {
+	// Getting user.
+	User *types.User `json:"user"`
+}
+
+// GetUser returns GetTotalUserPostsCountResponse.User, and is useful for accessing the field via an interface.
+func (v *GetTotalUserPostsCountResponse) GetUser() *types.User { return v.User }
+
+// GetUserPostsEdgesResponse is returned by GetUserPostsEdges on success.
+type GetUserPostsEdgesResponse struct {
+	// Getting user.
+	User *types.User `json:"user"`
+}
+
+// GetUser returns GetUserPostsEdgesResponse.User, and is useful for accessing the field via an interface.
+func (v *GetUserPostsEdgesResponse) GetUser() *types.User { return v.User }
+
+// GetUserPostsNodesResponse is returned by GetUserPostsNodes on success.
+type GetUserPostsNodesResponse struct {
+	// Getting user.
+	User *types.User `json:"user"`
+}
+
+// GetUser returns GetUserPostsNodesResponse.User, and is useful for accessing the field via an interface.
+func (v *GetUserPostsNodesResponse) GetUser() *types.User { return v.User }
 
 // GetUserResponse is returned by GetUser on success.
 type GetUserResponse struct {
@@ -175,25 +220,53 @@ type __GetSessionInput struct {
 // GetId returns __GetSessionInput.Id, and is useful for accessing the field via an interface.
 func (v *__GetSessionInput) GetId() ksuid.KSUID { return v.Id }
 
-// __GetSessionsInput is used internally by genqlient
-type __GetSessionsInput struct {
+// __GetSessionsEdgesInput is used internally by genqlient
+type __GetSessionsEdgesInput struct {
 	First  *int    `json:"first"`
 	Last   *int    `json:"last"`
 	Before *string `json:"before"`
 	After  *string `json:"after"`
 }
 
-// GetFirst returns __GetSessionsInput.First, and is useful for accessing the field via an interface.
-func (v *__GetSessionsInput) GetFirst() *int { return v.First }
+// GetFirst returns __GetSessionsEdgesInput.First, and is useful for accessing the field via an interface.
+func (v *__GetSessionsEdgesInput) GetFirst() *int { return v.First }
 
-// GetLast returns __GetSessionsInput.Last, and is useful for accessing the field via an interface.
-func (v *__GetSessionsInput) GetLast() *int { return v.Last }
+// GetLast returns __GetSessionsEdgesInput.Last, and is useful for accessing the field via an interface.
+func (v *__GetSessionsEdgesInput) GetLast() *int { return v.Last }
 
-// GetBefore returns __GetSessionsInput.Before, and is useful for accessing the field via an interface.
-func (v *__GetSessionsInput) GetBefore() *string { return v.Before }
+// GetBefore returns __GetSessionsEdgesInput.Before, and is useful for accessing the field via an interface.
+func (v *__GetSessionsEdgesInput) GetBefore() *string { return v.Before }
 
-// GetAfter returns __GetSessionsInput.After, and is useful for accessing the field via an interface.
-func (v *__GetSessionsInput) GetAfter() *string { return v.After }
+// GetAfter returns __GetSessionsEdgesInput.After, and is useful for accessing the field via an interface.
+func (v *__GetSessionsEdgesInput) GetAfter() *string { return v.After }
+
+// __GetSessionsNodesInput is used internally by genqlient
+type __GetSessionsNodesInput struct {
+	First  *int    `json:"first"`
+	Last   *int    `json:"last"`
+	Before *string `json:"before"`
+	After  *string `json:"after"`
+}
+
+// GetFirst returns __GetSessionsNodesInput.First, and is useful for accessing the field via an interface.
+func (v *__GetSessionsNodesInput) GetFirst() *int { return v.First }
+
+// GetLast returns __GetSessionsNodesInput.Last, and is useful for accessing the field via an interface.
+func (v *__GetSessionsNodesInput) GetLast() *int { return v.Last }
+
+// GetBefore returns __GetSessionsNodesInput.Before, and is useful for accessing the field via an interface.
+func (v *__GetSessionsNodesInput) GetBefore() *string { return v.Before }
+
+// GetAfter returns __GetSessionsNodesInput.After, and is useful for accessing the field via an interface.
+func (v *__GetSessionsNodesInput) GetAfter() *string { return v.After }
+
+// __GetTotalUserPostsCountInput is used internally by genqlient
+type __GetTotalUserPostsCountInput struct {
+	UserId ksuid.KSUID `json:"userId"`
+}
+
+// GetUserId returns __GetTotalUserPostsCountInput.UserId, and is useful for accessing the field via an interface.
+func (v *__GetTotalUserPostsCountInput) GetUserId() ksuid.KSUID { return v.UserId }
 
 // __GetUserInput is used internally by genqlient
 type __GetUserInput struct {
@@ -202,6 +275,54 @@ type __GetUserInput struct {
 
 // GetId returns __GetUserInput.Id, and is useful for accessing the field via an interface.
 func (v *__GetUserInput) GetId() ksuid.KSUID { return v.Id }
+
+// __GetUserPostsEdgesInput is used internally by genqlient
+type __GetUserPostsEdgesInput struct {
+	UserId ksuid.KSUID `json:"userId"`
+	First  *int        `json:"first"`
+	Last   *int        `json:"last"`
+	Before *string     `json:"before"`
+	After  *string     `json:"after"`
+}
+
+// GetUserId returns __GetUserPostsEdgesInput.UserId, and is useful for accessing the field via an interface.
+func (v *__GetUserPostsEdgesInput) GetUserId() ksuid.KSUID { return v.UserId }
+
+// GetFirst returns __GetUserPostsEdgesInput.First, and is useful for accessing the field via an interface.
+func (v *__GetUserPostsEdgesInput) GetFirst() *int { return v.First }
+
+// GetLast returns __GetUserPostsEdgesInput.Last, and is useful for accessing the field via an interface.
+func (v *__GetUserPostsEdgesInput) GetLast() *int { return v.Last }
+
+// GetBefore returns __GetUserPostsEdgesInput.Before, and is useful for accessing the field via an interface.
+func (v *__GetUserPostsEdgesInput) GetBefore() *string { return v.Before }
+
+// GetAfter returns __GetUserPostsEdgesInput.After, and is useful for accessing the field via an interface.
+func (v *__GetUserPostsEdgesInput) GetAfter() *string { return v.After }
+
+// __GetUserPostsNodesInput is used internally by genqlient
+type __GetUserPostsNodesInput struct {
+	UserId ksuid.KSUID `json:"userId"`
+	First  *int        `json:"first"`
+	Last   *int        `json:"last"`
+	Before *string     `json:"before"`
+	After  *string     `json:"after"`
+}
+
+// GetUserId returns __GetUserPostsNodesInput.UserId, and is useful for accessing the field via an interface.
+func (v *__GetUserPostsNodesInput) GetUserId() ksuid.KSUID { return v.UserId }
+
+// GetFirst returns __GetUserPostsNodesInput.First, and is useful for accessing the field via an interface.
+func (v *__GetUserPostsNodesInput) GetFirst() *int { return v.First }
+
+// GetLast returns __GetUserPostsNodesInput.Last, and is useful for accessing the field via an interface.
+func (v *__GetUserPostsNodesInput) GetLast() *int { return v.Last }
+
+// GetBefore returns __GetUserPostsNodesInput.Before, and is useful for accessing the field via an interface.
+func (v *__GetUserPostsNodesInput) GetBefore() *string { return v.Before }
+
+// GetAfter returns __GetUserPostsNodesInput.After, and is useful for accessing the field via an interface.
+func (v *__GetUserPostsNodesInput) GetAfter() *string { return v.After }
 
 // __RefreshTokenInput is used internally by genqlient
 type __RefreshTokenInput struct {
@@ -457,18 +578,64 @@ query GetSession ($id: ID!) {
 	return &data, err
 }
 
-func GetSessions(
+func GetSessionsEdges(
 	ctx context.Context,
 	client graphql.Client,
 	first *int,
 	last *int,
 	before *string,
 	after *string,
-) (*GetSessionsResponse, error) {
+) (*GetSessionsEdgesResponse, error) {
 	req := &graphql.Request{
-		OpName: "GetSessions",
+		OpName: "GetSessionsEdges",
 		Query: `
-query GetSessions ($first: Int, $last: Int, $before: String, $after: String) {
+query GetSessionsEdges ($first: Int, $last: Int, $before: String, $after: String) {
+	sessions(first: $first, last: $last, before: $before, after: $after) {
+		edges {
+			cursor
+			node {
+				id
+				userId
+				ip
+				expiresIn
+			}
+		}
+	}
+}
+`,
+		Variables: &__GetSessionsEdgesInput{
+			First:  first,
+			Last:   last,
+			Before: before,
+			After:  after,
+		},
+	}
+	var err error
+
+	var data GetSessionsEdgesResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetSessionsNodes(
+	ctx context.Context,
+	client graphql.Client,
+	first *int,
+	last *int,
+	before *string,
+	after *string,
+) (*GetSessionsNodesResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetSessionsNodes",
+		Query: `
+query GetSessionsNodes ($first: Int, $last: Int, $before: String, $after: String) {
 	sessions(first: $first, last: $last, before: $before, after: $after) {
 		nodes {
 			id
@@ -479,7 +646,7 @@ query GetSessions ($first: Int, $last: Int, $before: String, $after: String) {
 	}
 }
 `,
-		Variables: &__GetSessionsInput{
+		Variables: &__GetSessionsNodesInput{
 			First:  first,
 			Last:   last,
 			Before: before,
@@ -488,7 +655,69 @@ query GetSessions ($first: Int, $last: Int, $before: String, $after: String) {
 	}
 	var err error
 
-	var data GetSessionsResponse
+	var data GetSessionsNodesResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetTotalSessionsCount(
+	ctx context.Context,
+	client graphql.Client,
+) (*GetTotalSessionsCountResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetTotalSessionsCount",
+		Query: `
+query GetTotalSessionsCount {
+	sessions {
+		totalCount
+	}
+}
+`,
+	}
+	var err error
+
+	var data GetTotalSessionsCountResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetTotalUserPostsCount(
+	ctx context.Context,
+	client graphql.Client,
+	userId ksuid.KSUID,
+) (*GetTotalUserPostsCountResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetTotalUserPostsCount",
+		Query: `
+query GetTotalUserPostsCount ($userId: ID!) {
+	user(id: $userId) {
+		posts {
+			totalCount
+		}
+	}
+}
+`,
+		Variables: &__GetTotalUserPostsCountInput{
+			UserId: userId,
+		},
+	}
+	var err error
+
+	var data GetTotalUserPostsCountResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -523,6 +752,109 @@ query GetUser ($id: ID!) {
 	var err error
 
 	var data GetUserResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetUserPostsEdges(
+	ctx context.Context,
+	client graphql.Client,
+	userId ksuid.KSUID,
+	first *int,
+	last *int,
+	before *string,
+	after *string,
+) (*GetUserPostsEdgesResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetUserPostsEdges",
+		Query: `
+query GetUserPostsEdges ($userId: ID!, $first: Int, $last: Int, $before: String, $after: String) {
+	user(id: $userId) {
+		posts(first: $first, last: $last, before: $before, after: $after) {
+			edges {
+				cursor
+				node {
+					id
+					author {
+						id
+					}
+					text
+					updatedAt
+					attachments
+				}
+			}
+		}
+	}
+}
+`,
+		Variables: &__GetUserPostsEdgesInput{
+			UserId: userId,
+			First:  first,
+			Last:   last,
+			Before: before,
+			After:  after,
+		},
+	}
+	var err error
+
+	var data GetUserPostsEdgesResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func GetUserPostsNodes(
+	ctx context.Context,
+	client graphql.Client,
+	userId ksuid.KSUID,
+	first *int,
+	last *int,
+	before *string,
+	after *string,
+) (*GetUserPostsNodesResponse, error) {
+	req := &graphql.Request{
+		OpName: "GetUserPostsNodes",
+		Query: `
+query GetUserPostsNodes ($userId: ID!, $first: Int, $last: Int, $before: String, $after: String) {
+	user(id: $userId) {
+		posts(first: $first, last: $last, before: $before, after: $after) {
+			nodes {
+				id
+				author {
+					id
+				}
+				text
+				updatedAt
+				attachments
+			}
+		}
+	}
+}
+`,
+		Variables: &__GetUserPostsNodesInput{
+			UserId: userId,
+			First:  first,
+			Last:   last,
+			Before: before,
+			After:  after,
+		},
+	}
+	var err error
+
+	var data GetUserPostsNodesResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
